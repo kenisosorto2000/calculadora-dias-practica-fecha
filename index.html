@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de días de práctica</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de días de práctica</h1>
+    <form id="formulario">
+      <label for="inicio">Fecha de inicio de práctica:</label>
+      <input type="date" id="inicio" required />
+
+      <label for="perdidos">Días de práctica perdidos:</label>
+      <input type="number" id="perdidos" min="0" value="0" required />
+
+      <label for="objetivo">Días de práctica requeridos:</label>
+      <input type="number" id="objetivo" min="1" value="100" required />
+
+      <button type="submit">Calcular</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
