@@ -11,7 +11,7 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
     return;
   }
 
-  const inicio = new Date(inicioStr + 'T00:00:00'); // fuerza inicio en 00:00:00 local
+  const inicio = new Date(inicioStr + 'T00:00:00');
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
@@ -24,7 +24,7 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
       diasHabiles++;
     }
     fechaIter.setDate(fechaIter.getDate() + 1);
-    fechaIter.setHours(0, 0, 0, 0); // asegura que el incremento no arrastre hora
+    fechaIter.setHours(0, 0, 0, 0);
   }
 
   diasHabiles -= perdidos;
@@ -49,8 +49,23 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
   const hoyStr = hoy.toLocaleDateString('es-ES', opcionesFecha);
   const fechaFinalStr = fechaFinal.toLocaleDateString('es-ES', opcionesFecha);
 
+  // Calcular horas y minutos restantes hoy
+  const ahora = new Date();
+  const salida = new Date();
+  salida.setHours(17, 0, 0, 0); // 5:00 p. m.
+
+  let hrMinRestantes = "0 hr : 0 min";
+  if (ahora < salida) {
+    const msRestantes = salida - ahora;
+    const totalMin = Math.floor(msRestantes / (1000 * 60));
+    const horas = Math.floor(totalMin / 60);
+    const minutos = totalMin % 60;
+    hrMinRestantes = `${horas} hr : ${minutos} min`;
+  }
+
   resultadoDiv.innerHTML = `
     <p><strong>Hoy es:</strong> ${hoyStr}</p>
+    <p><strong>Horas que faltan para salir hoy:</strong> ${hrMinRestantes}</p>
     <p><strong>Días de práctica acumulados:</strong> ${diasHabiles}</p>
     <p><strong>Faltan:</strong> ${objetivo - diasHabiles} días hábiles de práctica</p>
     <p><strong>Finalizarás el:</strong> ${fechaFinalStr}</p>
